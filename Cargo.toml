@@ -1,0 +1,31 @@
+[package]
+name = "nods-cli"
+version = "0.1.0"
+edition = "2021"
+description = "NODS CLI — manage terminal-workspace configs and sessions from your terminal"
+authors = ["AHL Development Team"]
+license = "MIT"
+readme = "README.md"
+repository = "https://nods.dev"
+
+# Binary name is `nods` (not `nods-cli`) so the published artifact and the
+# command users type match the SEGA download slug `nods`.
+[[bin]]
+name = "nods"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive", "env"] }
+clap_complete = "4"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+anyhow = "1"
+dirs = "5"
+
+[profile.release]
+strip = true
+lto = true
+opt-level = "z"
+codegen-units = 1
